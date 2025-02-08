@@ -31,28 +31,10 @@
 <script setup lang="ts">
 import {ref} from 'vue';
 import {useRouter} from "vue-router";
-
+import {originTagList} from "../constants/team.ts"
 
 const searchText = ref('');
-//标签列表
-const originTagList = [
-  {
-    text: '性别',
-    children: [
-      {text: '男', id: '男'},
-      {text: '女', id: '女'},
-
-    ],
-  },
-  {
-    text: '身份',
-    children: [
-      {text: '大一', id: '大一'},
-      {text: '大二', id: '大二'},
-    ],
-  },
-
-];
+//标签列表 originTagList
 
 let tagList = ref(originTagList);
 

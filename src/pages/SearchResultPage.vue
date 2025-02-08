@@ -51,20 +51,6 @@ onMounted(async () => {
 })
 
 
-// const mockUser = {
-//   id: 1,
-//   username: "lpz",
-//   userAccount: "lpz123",
-//   profile: "一个吃苦耐劳长满头发的程序员lpz",
-//   avatarUrl: "https://gw.alipayobjects.com/zos/bmw-prod/598d14af-4f1c-497d-b579-5ac42cd4dd1f/k7bjua9c_w132_h130.png",
-//   gender: 0,
-//   email: "121235644@qq.com",
-//   phone: "12124565465",
-//   userRole: 1,
-//   planetCode: 1,
-//   createTime: new Date(),
-//   tags: ['java','大一','男','实习中'],
-// }
 
 </script>
 

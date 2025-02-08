@@ -10,6 +10,9 @@
     <van-cell title="手机号" is-link to="/user/edit" :value="user.phone" @click="toEdit('phone','手机号',user.phone)"/>
     <van-cell title="编号"  :value="user.planetCode" />
     <van-cell title="创建时间"  :value="user.createTime" />
+    <van-cell title="标签"  is-link to="/user/tags/edit" >
+      <van-tag plain type="primary"  v-for="tag in user.tags" style="margin-right: 8px;margin-top: 8px">{{tag}}</van-tag>
+    </van-cell>
 
   </template>
 
@@ -20,6 +23,7 @@ import {onMounted, ref} from "vue";
 import MyAxios from "../plugins/myAxios.js";
 import {showFailToast, showSuccessToast} from "vant";
 import {getCurrentUser} from "../services/user.ts";
+import type {UserType} from "../models/user";
 
 // const user = {
 //     id: 1,
@@ -38,6 +42,9 @@ const router = useRouter();
 const user = ref();
 onMounted(async () => {
   user.value = await getCurrentUser();
+  if (user.value.tags) {
+    user.value.tags = JSON.parse(user.value.tags); //把JSon转换成数组
+  }
   // if (currentUser) {
   //   user.value = currentUser;
   //   showSuccessToast("获取用户信息成功");

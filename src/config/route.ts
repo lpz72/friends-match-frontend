@@ -11,6 +11,7 @@ import UserTeamCreatePage from "../pages/UserTeamCreatePage.vue";
 import UserTeamJoinPage from "../pages/UserTeamJoinPage.vue";
 import UserUpdatePage from "../pages/UserUpdatePage.vue";
 import UserRegisterPage from "../pages/UserRegisterPage.vue";
+import UserTagsEdit from "../pages/UserTagsEdit.vue";
 
 //定义一些路由
 const routes = [
@@ -27,6 +28,7 @@ const routes = [
     { path: '/user/team/join',title:"加入队伍", component: UserTeamJoinPage },
     { path: '/user/update',title:"更新信息", component: UserUpdatePage },
     { path: '/user/register',title:"注册", component: UserRegisterPage },
+    { path: '/user/tags/edit',title:"更新标签", component: UserTagsEdit },
 
 ]
 
