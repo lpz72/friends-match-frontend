@@ -1,0 +1,22 @@
+import myAxios from "../plugins/myAxios.js";
+import {getCurrentUserState, setCurrentUserState} from "../states/user.ts";
+
+/**
+ * 获取当前用户
+ */
+export const getCurrentUser = async () => {
+    //用户量不太多时可以不用在前端缓存用户
+    // const currentUser = getCurrentUserState();
+    // if (currentUser) {
+    //     return currentUser;
+    // }
+
+    // 不存在则从远程获取
+    const res =  await myAxios.get('/user/current');
+    if (res.code === 0) {
+        setCurrentUserState(res.data);
+        return res.data;
+    }
+    return null;
+
+}
