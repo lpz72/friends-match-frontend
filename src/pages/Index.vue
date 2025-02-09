@@ -13,6 +13,13 @@
 
   </van-cell>
   <UserCardList :user-list="userList" :loading="loading"/>
+  <van-pagination v-if="userList.length > 0"
+      v-model="currentPage"
+      :total-items="total"
+      :show-page-size="3"
+      force-ellipses
+      @change="loadData(currentPage)"
+  />
 <!--  <van-empty v-if="!userList || userList.length < 1" description="数据为空" />-->
 </template>
 <script setup lang="ts">
@@ -30,11 +37,13 @@ const tags = route.query.tags;
 const userList = ref([]);
 const isMatchMode = ref<boolean>(false);
 const loading = ref(true);
-
+const currentPage = ref();
+const pageSize = ref(8);
+const total = ref();
 /**
  * 加载数据
  */
-const loadData = async () => {
+const loadData = async (currentPage:number) => {
   let userListData;
   loading.value = true;
   //心动模式，根据标签匹配用户
@@ -61,8 +70,8 @@ const loadData = async () => {
   else {
     userListData = await myAxios.get('/user/recommend', {
       params: {
-        pageSize: 8,
-        pageNum: 1,
+        pageSize: pageSize.value,
+        pageNum: currentPage,
       },
     })
         .then(function (response) {
@@ -87,14 +96,28 @@ const loadData = async () => {
       }
     });
     userList.value = userListData;
+    // console.log("222",userList.value);
   }
   loading.value = false;
+}
+/**
+ * 获取总的用户数量
+ */
+const getTotal = async () => {
+  const res = await myAxios.get("/user/list");
+  if (res?.code === 0) {
+    total.value = res.data;
+  } else {
+    showFailToast("请求错误，请稍后重试");
+  }
 }
 
 //watchEffect可以监听变量的值变化
 watchEffect(() => {
   // alert(isMatchMode.value);
-  loadData();
+  loadData(1);
+  getTotal();
+
 });
 
 //使用钩子，每次初始化好该页面后，就会执行onMounted
@@ -129,37 +152,7 @@ watchEffect(() => {
 //   }
 // })
 
-/**
- * 匹配用户
- */
-// const doMatch = async () => {
-//   const num = 3;
-//   const userListData = await myAxios.get('/user/match', {
-//     params: {
-//       num,
-//     },
-//   })
-//       .then(function (response) {
-//         // 处理成功情况
-//         console.log("/user/match succeed", response);
-//         showSuccessToast("请求成功");
-//         return response?.data; //直接去data，是列表
-//       })
-//       .catch(function (error) {
-//         // 处理错误情况
-//         console.error("/user/match error", error);
-//         showFailToast("请求失败");
-//       })
-//
-//   if (userListData) {
-//     userListData.forEach((user: UserType) => {
-//       if (user.tags) {
-//         user.tags = JSON.parse(user.tags); //把JSon转换成数组
-//       }
-//     });
-//     userList.value = userListData;
-//   }
-// }
+
 
 </script>
 

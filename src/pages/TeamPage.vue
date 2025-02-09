@@ -13,6 +13,13 @@
       magnetic="x"
       @click="toAddTeam"
   />
+<!--  <van-pagination v-if="teamList.length > 0"-->
+<!--                  v-model="currentPage"-->
+<!--                  :total-items="total"-->
+<!--                  :show-page-size="3"-->
+<!--                  force-ellipses-->
+<!--                  @change="listTeams(currentPage)"-->
+<!--  />-->
 <!--  <van-button class="add-button" icon="plus" type="primary" @click="toAddTeam" />-->
 
   <!-- 搜索提示 -->
@@ -30,6 +37,10 @@ const router = useRouter();
 const active = ref("public");
 
 const offset = ref({x:300, y:550});
+
+// const currentPage = ref();
+// const pageSize = ref(2);
+// const total = ref();
 
 const TabChange = (name) => {
   if (name === "public") {
@@ -60,11 +71,13 @@ const listTeams = async (val = '',status) => {
     params: {
       searchText: val,
       pageNum: 1,
+      pageSize: 10000,
       status,
     }
   });
   if (res?.code === 0) {
     teamList.value = res.data;
+    // console.log("111",teamList.value);
   } else {
     showFailToast("加载队伍失败，请刷新重试");
   }

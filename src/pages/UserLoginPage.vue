@@ -57,7 +57,7 @@ const onSubmit = async () => {
     userAccount: userAccount.value,
     userPassword: userPassword.value,
   });
-  console.log('用户登录', res);
+  // console.log('用户登录', res);
   if (res.code === 0 && res.data){
     showSuccessToast('登录成功');
 
@@ -66,7 +66,7 @@ const onSubmit = async () => {
     window.location.href = redirectUrl;
 
   } else {
-    showFailToast('登录失败');
+    showFailToast(res.description);
   }
   loginLoading.value = false;
 };

@@ -10,7 +10,7 @@
            required: true,
            message: '请填写账户',
            validator: (value) => {
-             if (!/^a-zA-Z0-9_/.test(value)) {
+             if (!/^[A-Za-z0-9]/.test(value) || value.length < 4) {
                 return '账户应为不少于4位的字母和数字组合';
              }
            }

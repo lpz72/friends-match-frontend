@@ -3,7 +3,7 @@
     <van-card v-for="team in props.teamList"
               :desc="team.description"
               :title="`${team.name}`"
-              :thumb="ikun"
+              :thumb="image"
     >
       <template #tags>
         <van-tag plain type="primary"style="margin-right: 8px;margin-top: 8px">
@@ -43,7 +43,7 @@
 
 import type {TeamType} from "../models/team";
 import {teamStatusMap} from "../constants/team.ts";
-import ikun from '../assets/ikun.jpg'
+import image from '../assets/teamPictures/team1.jpg'
 import myAxios from "../plugins/myAxios";
 import {showFailToast, showSuccessToast, showToast} from "vant";
 import {onMounted, ref} from "vue";
@@ -63,7 +63,6 @@ const joinTeamId = ref();
 
 const currentUser = ref();
 const router = useRouter();
-
 
 onMounted(async () => {
   currentUser.value = await getCurrentUser();
